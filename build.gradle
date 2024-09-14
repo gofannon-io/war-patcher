@@ -1,0 +1,16 @@
+plugins {
+    id 'base'
+}
+
+group = 'xyz.gofannon'
+version = '0.0.1-SNAPSHOT'
+
+
+repositories {
+    mavenCentral()
+}
+
+wrapper {
+    gradleVersion='8.7'
+}
+

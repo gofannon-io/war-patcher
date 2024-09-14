@@ -1,0 +1,82 @@
+plugins {
+    id 'java'
+    id 'war'
+    id 'org.springframework.boot' version '3.3.3'
+    id 'io.spring.dependency-management' version '1.1.6'
+    id 'application'
+    id 'distribution'
+    id 'maven-publish'
+}
+
+group = 'xyz.gofannon'
+version = '0.0.1-SNAPSHOT'
+
+
+
+
+application {
+    //mainModule = 'org.gradle.sample.app' // name defined in module-info.java
+    mainClass = 'xyz.gofannon.warpatcher.helloweb.HellowebApplication'
+}
+
+
+
+//war {
+//    enabled = true
+//}
+
+//tasks.named("bootWar") {
+//    archiveClassifier = 'boot'
+//    launchScript()
+//}
+
+//distributions {
+//    main {
+//        contents {
+//            from { 'distrib' }
+//        }
+//    }
+//}
+
+//tasks.named("war") {
+//    archiveClassifier = 'bloop'
+//}
+
+//springBoot {
+//    mainClass = 'xyz.gofannon.helloweb.HellowebApplication'
+//}
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation project(":sayhello")
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
+
+publishing {
+    publications {
+        bootJava(MavenPublication) {
+            artifact tasks.named("bootJar")
+        }
+    }
+//    repositories {
+//        maven {
+//            url 'https://repo.example.com'
+//        }
+//    }
+}
